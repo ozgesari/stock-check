@@ -1,5 +1,24 @@
 import FilterableProductTable from './components/FilterableProductTable';
 import './App.css';
+import { people, PRODUCTS } from './data/data';
+import { getImageUrl } from './utils/utils';
+import PeopleList from './components/PeopleList'
+import Recipes from './components/Recipes';
+import Poem from './components/Poem';
+
+function Item({ name, isPacked }) {
+  let itemContent = name;
+  if (isPacked) {
+    itemContent = (
+      <del>
+        {name} + 'tik'
+      </del>
+    )
+  }
+  return <li className='item'>{itemContent}</li>
+}
+
+
 
 function App() {
   return (
@@ -7,17 +26,31 @@ function App() {
       <header className="App-header">
         <FilterableProductTable products={PRODUCTS} />
       </header>
+      <section>
+        <h1>Sally Ride's Packing List</h1>
+        <ul>
+          <Item
+            isPacked={true}
+            name="Space suit"
+          />
+          <Item
+            isPacked={true}
+            name="Helmet"
+          />
+          <Item
+            isPacked={false}
+            name="Photo of Tam"
+          />
+        </ul>
+      </section>
+      <PeopleList people={people} getImageUrl={getImageUrl} />
+      <Recipes />
+      <Poem />
     </div>
   );
 }
 
-const PRODUCTS = [
-  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
-  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
-  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
-  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
-  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
-  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" }
-];
+
+
 
 export default App;
